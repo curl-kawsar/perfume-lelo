@@ -1,0 +1,110 @@
+@import "tailwindcss";
+
+@theme {
+  /* Storefront palette — a photographer's cyclorama, lit cool. */
+  --color-porcelain: #eef0f1;
+  --color-sweep: #dde2e5;
+  --color-ink: #171c1f;
+  --color-mist: #6e787e;
+  --color-hairline: #d3d9dc;
+
+  /* Admin palette. Neutral chrome and ink, with one validated data hue. */
+  --color-plane: #f9f9f7;
+  --color-surface: #fcfcfb;
+  --color-ink-1: #0b0b0b;
+  --color-ink-2: #52514e;
+  --color-ink-3: #898781;
+  --color-grid: #e1e0d9;
+  --color-rule: #c3c2b7;
+  --color-series: #2a78d6;
+  --color-good: #0ca30c;
+  --color-warning: #fab219;
+  --color-serious: #ec835a;
+  --color-critical: #d03b3b;
+  --color-success-ink: #006300;
+
+  --font-display: var(--font-bodoni), ui-serif, Georgia, serif;
+  --font-editorial: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
+}
+
+:root {
+  color-scheme: light;
+}
+
+html,
+body {
+  background: var(--color-porcelain);
+  color: var(--color-ink);
+}
+
+body {
+  font-family: var(--font-editorial);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* The storefront is a photographer's seamless backdrop: a wall that curves
+   into a floor. The sweep is one gradient stack, not a flat fill. */
+.cyclorama {
+  background:
+    radial-gradient(
+      120% 70% at 50% 8%,
+      rgba(255, 255, 255, 0.95) 0%,
+      rgba(255, 255, 255, 0) 60%
+    ),
+    radial-gradient(
+      80% 50% at 50% 112%,
+      rgba(190, 200, 206, 0.55) 0%,
+      rgba(190, 200, 206, 0) 70%
+    ),
+    linear-gradient(
+      to bottom,
+      #e9ecee 0%,
+      #eef0f1 34%,
+      #eaedef 66%,
+      #dde2e5 100%
+    );
+}
+
+/* Keyboard focus stays visible everywhere. */
+:where(a, button, input, select, [tabindex]):focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+/* Columns of figures must align; prose figures must not. */
+.tnum {
+  font-variant-numeric: tabular-nums;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(1.25rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* One orchestrated load sequence on the storefront. Nothing else self-animates. */
+.rise {
+  animation: rise 1s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rise {
+    animation: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
